@@ -6,7 +6,9 @@
             "email": "diogo.afroruts@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "robmorgan/phinx": "0.9.2"
+    },
     "autoload":{
         "psr-4":{
           "SONFin\\": "src/"
