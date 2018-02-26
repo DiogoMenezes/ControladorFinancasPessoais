@@ -1,0 +1,15 @@
+{
+    "name": "dgm/controlador-financas-pessoais",
+    "authors": [
+        {
+            "name": "Diogo",
+            "email": "diogo.afroruts@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+          "SONFin\\": "src/"
+        }
+    }
+}
