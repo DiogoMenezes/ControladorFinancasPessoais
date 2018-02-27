@@ -13,4 +13,5 @@ return array(
     'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
     'SONFin\\' => array($baseDir . '/src'),
     'Phinx\\' => array($vendorDir . '/robmorgan/phinx/src/Phinx'),
+    'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );
