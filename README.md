@@ -13,7 +13,7 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta git. *Exemplo:`C:\Program Files\Git\bin;`*  
+- Após o ; coloque o caminho da pasta git. *Exemplo:C:\Program Files\Git\bin;*  
 
 # PHP
 
@@ -30,11 +30,11 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta php. *`Exemplo:C:\php;`*  
+- Após o ; coloque o caminho da pasta php. *Exemplo:C:\php;*  
 
 ### Configuração PHP
 
-- Dentro da pasta do php , existem dois arquivos (`php.ini-development` e `php.ini-production`) , que são duas configurações para propósitos diferentes.
+- Dentro da pasta do php , existem dois arquivos (*php.ini-development* e *php.ini-production*) , que são duas configurações para propósitos diferentes.
 Na nossa situação, usaremos o php.ini-development porque será para desenvolvimento.
 - Renomeie o arquivo php.ini-development para php.ini
 - Abra o php.ini para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L ou CTRL + F) para localizar rapidamente as palavras.)  
@@ -68,7 +68,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta composer. *Exemplo:`C:\ProgramData\ComposerSetup\bin;`*  
+- Após o ; coloque o caminho da pasta composer. *Exemplo:C:\ProgramData\ComposerSetup\bin;*  
 
 # MYSQL
 
@@ -84,7 +84,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta mysql. *Exemplo:`C:\Program Files\MySQL\MySQL Server 5.7\bin;`*  
+- Após o ; coloque o caminho da pasta mysql. *Exemplo:C:\Program Files\MySQL\MySQL Server 5.7\bin;*  
 
 # Aplicação
 
@@ -92,8 +92,8 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 
 - Criar uma pasta ( nomear do jeito que quiser) __OBS: Essa será a pasta da sua aplicação__
 - Entre nessa pasta pelo Git Bash
-- Comando: *composer init* ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
-  -> Seu arquivo `composer.json` ficará assim:
+- Comando: `composer init` ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
+  -> Seu arquivo *composer.json* ficará assim:
 ```javascript
 {
     "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
