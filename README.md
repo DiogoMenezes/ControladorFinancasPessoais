@@ -18,7 +18,7 @@
 
 - Download: http://windows.php.net/download
 - Realize o download da versão 7.1 non thread
-- Descompacte o arquivo baixado e renomeio o diretório caso queira
+- Descompacte o arquivo baixado e renomeie o diretório caso queira
 
 -- CONFIGURAR PHP NA VARIÁVEL DE AMBIENTE --
 
