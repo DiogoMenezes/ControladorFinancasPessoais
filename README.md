@@ -124,6 +124,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
         }
     }
 ```
-OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes.Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.  
+OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes.
+Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.  
 - Crie a pasta que será apontada pelo namespace.  
 - Execute o comando `composer autoload`(Não criará nada pois não existe nenhuma classe ainda, mas vai criar uma pasta chamada vendor, que é responsável por conter todas as dependências que serão utilizadas).  
