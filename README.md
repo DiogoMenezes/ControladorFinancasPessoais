@@ -107,7 +107,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 }
 ```  
 - Configurar autoload (O autoload serve para fazer o carregamento automático das classes)
-- Utilizaremos a PSR-4 (PSR são especificações de projeto) para autoload , já que a PSR-0 está depreciada
+- Utilizaremos a PSR-4 (PSR são especificações de projeto) para autoload , já que a PSR-0 está depreciada.  
   -> Ficará assim:
 ```javascript
 {
