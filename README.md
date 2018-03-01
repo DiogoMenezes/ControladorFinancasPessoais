@@ -23,7 +23,7 @@
 - Realize o download da versão 7.1 non thread
 - Descompacte o arquivo baixado e renomeie o diretório caso queira
 
-### Configurar PHP na variável de ambiente-
+### Configurar PHP na variável de ambiente
 
 - Abra o painel de controle
 - Sistema
