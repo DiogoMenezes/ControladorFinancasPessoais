@@ -46,11 +46,11 @@ __OBS: TODAS AS LINHAS QUE INICIAM COM ; INDICAM QUE ESSA LINHA ESTA COMENTADA ,
 -> `extension=php_mysqli.dll` (Extensão do Windows para utilizar as funções do MySQLi)  
 -> `extension=php_openssl.dll`(Extensão do Windows para utilizar as funções do OpenSSL)  
 -> `extension=php_pdo_mysql.dll` (Extensão do Windows para conectar no MySQL)
--> `display_errors` = On (Mostrar os erros caso apareçam no PHP)  
--> `display_startup_errors` = On (Mostrar os erros caso apareçam no PHP)  
--> `log_errors` = On (Mostrar os logs de erros do PHP)  
--> `error_log` = C:\php (Coloque o caminho da sua pasta PHP) (Local onde o arquivo de error vai ser gerado)  
--> `error_reporting` = E_ALL (Mostrar todo tipo de erro)
+-> `display_errors = On` (Mostrar os erros caso apareçam no PHP)  
+-> `display_startup_errors = On` (Mostrar os erros caso apareçam no PHP)  
+-> `log_errors = On` (Mostrar os logs de erros do PHP)  
+-> `error_log = C:\php` (Coloque o caminho da sua pasta PHP) (Local onde o arquivo de error vai ser gerado)  
+-> `error_reporting = E_ALL` (Mostrar todo tipo de erro)
 - Salve o arquivo e voilà , php configurado !
 
 # Composer
