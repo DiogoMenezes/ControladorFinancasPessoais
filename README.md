@@ -12,7 +12,7 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta git. *Exemplo:C:\Program Files\Git\bin;*  
+- Após o ; coloque o caminho da pasta git. *Exemplo:`C:\Program Files\Git\bin;`*  
 
 -- INSTALAÇÃO PHP --
 
@@ -27,7 +27,7 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta php. *Exemplo:C:\php;*  
+- Após o ; coloque o caminho da pasta php. *`Exemplo:C:\php;`*  
 
 -- CONFIGURAÇÃO PHP --
 
@@ -37,7 +37,7 @@ Na nossa situação, usaremos o php.ini-development porque será para desenvolvi
 - Abra o php.ini para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L ou CTRL + F) para localizar rapidamente as palavras.)  
 __OBS: TODAS AS LINHAS QUE INICIAM COM ; INDICAM QUE ESSA LINHA ESTA COMENTADA ,OU SEJA, NÃO ESTÁ SENDO UTILIZADA. PARA UTILIZARMOS AQUELA CONFIG, BASTA REMOVER O ;__
 - Configurações(__ATIVAR TODOS AS CONFIGS ABAIXO__) :  
--> extension_dir = "ext" ( Necessário para ativar as extensões do php).  
+-> `extension_dir` = "ext" ( Necessário para ativar as extensões do php).  
 -> extension=php_curl.dll (Extensão do Windows para acessar uma URL externa)  
 -> extension=php_intl.dll (Extensão do Windows para trabalhar com datas e números)  
 -> extension=php_mysqli.dll (Extensão do Windows para utilizar as funções do MySQLi)  
@@ -63,7 +63,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta composer. *Exemplo:C:\ProgramData\ComposerSetup\bin;*  
+- Após o ; coloque o caminho da pasta composer. *Exemplo:`C:\ProgramData\ComposerSetup\bin;`*  
 
 -- INSTALAÇÃO MYSQL --
 
