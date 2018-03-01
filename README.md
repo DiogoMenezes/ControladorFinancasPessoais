@@ -92,7 +92,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 
 - Criar uma pasta ( nomear do jeito que quiser)
 - Entre nessa pasta pelo Git Bash
-- Comando: composer init ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
+- Comando: *composer init* ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
   -> Seu arquivo `composer.json` ficará assim:
 ```javascript
 {
