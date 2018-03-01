@@ -70,7 +70,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Download: https://dev.mysql.com/downloads/installer/ (baixar versão de maior tamanho)
 - Instalar com as configurações padrão
 
--- CONFIGURAR COMPOSER NA VARIÁVEL DE AMBIENTE --
+-- CONFIGURAR MYSQL NA VARIÁVEL DE AMBIENTE --
 
 - Abra o painel de controle
 - Sistema
