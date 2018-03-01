@@ -32,9 +32,9 @@
 -- CONFIGURAÇÃO PHP --
 
 - Dentro da pasta do php , existem dois arquivos (php.ini-development e php.ini-production) , que são duas configurações para propósitos diferentes.
-Na nossa situação, usaremos o php.ini-development pq será para desenvolvimento.
-- Renomeie o arqui php.ini-development para php.ini
-- Abra o php.ini para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L) para localizar rapidamente as palavras.)  
+Na nossa situação, usaremos o php.ini-development porque será para desenvolvimento.
+- Renomeie o arquivo php.ini-development para php.ini
+- Abra o php.ini para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L ou CTRL + F) para localizar rapidamente as palavras.)  
 __OBS: TODAS AS LINHAS QUE INICIAM COM ; INDICAM QUE ESSA LINHA ESTA COMENTADA ,OU SEJA, NÃO ESTÁ SENDO UTILIZADA. PARA UTILIZARMOS AQUELA CONFIG, BASTA REMOVER O ;__
 - Configurações(__ATIVAR TODOS AS CONFIGS ABAIXO__) :  
 -> extension_dir = "ext" ( Necessário para ativar as extensões do php).  
@@ -48,7 +48,7 @@ __OBS: TODAS AS LINHAS QUE INICIAM COM ; INDICAM QUE ESSA LINHA ESTA COMENTADA ,
 -> log_errors = On (Mostrar os logs de erros do PHP)  
 -> error_log = C:\php (Coloque o caminho da sua pasta PHP) (Local onde o arquivo de error vai ser gerado)  
 -> error_reporting = E_ALL (Mostrar todo tipo de erro)
-- Salve o arquivo e voilá , php configurado !
+- Salve o arquivo e voilà , php configurado !
 
 -- INSTALAÇÃO COMPOSER --
 
@@ -68,7 +68,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 -- INSTALAÇÃO MYSQL --
 
 - Download: https://dev.mysql.com/downloads/installer/ (baixar versão de maior tamanho)
-- Instalar com as configurações padrão
+- Realize a instalação com as configurações padrões.
 
 -- CONFIGURAR MYSQL NA VARIÁVEL DE AMBIENTE --
 
