@@ -64,3 +64,18 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
 - Após o ; coloque o caminho da pasta composer. *Exemplo:C:\ProgramData\ComposerSetup\bin;*  
+
+-- INSTALAÇÃO MYSQL --
+
+- Download: https://dev.mysql.com/downloads/installer/ (baixar versão de maior tamanho)
+- Instalar com as configurações padrão
+
+-- CONFIGURAR COMPOSER NA VARIÁVEL DE AMBIENTE --
+
+- Abra o painel de controle
+- Sistema
+- Configurações avançadas de sistema
+- Variáveis de Ambiente
+- Em variáveis do sistema (tabela de baixo) edite o campo Path
+- Após o ; coloque o caminho da pasta mysql. *Exemplo:C:\Program Files\MySQL\MySQL Server 5.7\bin;*  
+
