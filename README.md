@@ -86,3 +86,44 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
 - Após o ; coloque o caminho da pasta mysql. *Exemplo:`C:\Program Files\MySQL\MySQL Server 5.7\bin;`*  
 
+# Aplicação
+
+### Iniciando com composer
+
+- Criar uma pasta ( nomear do jeito que quiser)
+- Comando: composer init ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
+  -> Seu arquivo `composer.json` ficará assim:
+```javascript
+{
+    "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
+    "authors": [
+        {
+            "name": "Seu Nome",
+            "email": "seu-email@gmail.com"
+        }
+    ],
+    "require": {}
+}
+```  
+- Configurar autoload (O autoload serve para fazer o carregamento automático das classes)
+- Utilizaremos a PSR-4 (PSR são especificações de projeto) para autoload , já que a PSR-0 está depreciada
+  -> Ficará assim:
+  ```javascript
+  {
+     "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
+    "authors": [
+        {
+            "name": "Seu Nome",
+            "email": "seu-email@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+          "nome-do-namespace-que-você-quer\\": "pasta-que-o-namespace-irá-apontar/"
+        }
+    }
+```
+OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes.Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.  
+- Crie a pasta que será apontada pelo namespace.  
+- Execute o comando `composer autoload`(Não criará nada pois não existe nenhuma classe ainda, mas vai criar uma pasta chamada vendor, que é responsável por conter todas as dependências que serão utilizadas).  
