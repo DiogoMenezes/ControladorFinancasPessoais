@@ -93,7 +93,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Criar uma pasta ( nomear do jeito que quiser)
 - Comando: composer init ( irá criar o composer.json) OBS: Você também pode definir outras coisas como nome, email...  
   -> Seu arquivo `composer.json` ficará assim:
-  ```javascript
+```javascript
 {
     "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
     "authors": [
@@ -109,20 +109,16 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Utilizaremos a PSR-4 (PSR são especificações de projeto) para autoload , já que a PSR-0 está depreciada
   -> Ficará assim:
 ```javascript
-  {
-     "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
+{
+    "name": "nome-da-maquina/nome-da-pasta-que-voce-criou",
     "authors": [
         {
             "name": "Seu Nome",
             "email": "seu-email@gmail.com"
         }
     ],
-    "require": {},
-    "autoload":{
-        "psr-4":{
-          "nome-do-namespace-que-você-quer\\": "pasta-que-o-namespace-irá-apontar/"
-        }
-    }
+    "require": {}
+}
 ```  
 __OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes. Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.__  
 - Crie a pasta que será apontada pelo namespace.    
