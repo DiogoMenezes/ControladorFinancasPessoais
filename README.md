@@ -36,8 +36,8 @@
 
 - Dentro da pasta do php , existem dois arquivos (*php.ini-development* e *php.ini-production*) , que são duas configurações para propósitos diferentes.
 Na nossa situação, usaremos o php.ini-development porque será para desenvolvimento.
-- Renomeie o arquivo php.ini-development para php.ini
-- Abra o php.ini para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L ou CTRL + F) para localizar rapidamente as palavras.)  
+- Renomeie o arquivo *php.ini-development* para *php.ini*
+- Abra o *php.ini* para realizarmos a configuração do mesmo( Pode utilizar qualquer editor de texto para abrir o arquivo)(Dê um find (CTRL + L ou CTRL + F) para localizar rapidamente as palavras.)  
 __OBS: TODAS AS LINHAS QUE INICIAM COM ; INDICAM QUE ESSA LINHA ESTA COMENTADA ,OU SEJA, NÃO ESTÁ SENDO UTILIZADA. PARA UTILIZARMOS AQUELA CONFIG, BASTA REMOVER O ;__
 - Configurações(__ATIVAR TODOS AS CONFIGS ABAIXO__) :  
 -> `extension_dir = "ext"` ( Necessário para ativar as extensões do php).  
@@ -128,4 +128,4 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 ```  
 __OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes. Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.__  
 - Crie a pasta que será apontada pelo namespace.    
-- Execute o comando `composer autoload`(Não criará nada pois não existe nenhuma classe ainda, mas vai criar uma pasta chamada _vendor_, que é responsável por conter todas as dependências que serão utilizadas).  
+- Execute o comando `composer autoload`(Não criará nada pois não existe nenhuma classe ainda, mas vai criar uma pasta chamada *vendor*, que é responsável por conter todas as dependências que serão utilizadas).  
