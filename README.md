@@ -129,3 +129,128 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 __OBS: Namespaces possibilitam o agrupamento de classes, interfaces, funções e constantes, visando evitar o conflito entre seus nomes. Melhor explicando, evita o uso repetitivo de includes, já que o namespace aponta para a pasta onde está o código fonte da aplicação.__  
 - Crie a pasta que será apontada pelo namespace.    
 - Execute o comando `composer autoload`(Não criará nada pois não existe nenhuma classe ainda, mas vai criar uma pasta chamada *vendor*, que é responsável por conter todas as dependências que serão utilizadas).  
+
+# Integração da biblioteca phinx 
+
+__OBS: (Através dela podemos administrar as migrations do nosso projeto, ou seja, administrar o banco de dados, através do PHP.)__    
+__Migrations : É uma ferramenta que visa realizar manutenção da estrutura de banco de dados. Consiste em identificar a linguagem de programação que estamos utilizando e fazer com que ela gerencie estes campos, para nós.
+
+### Instalação da biblioteca phinx
+
+- Na pasta do projeto, rodar o comando: `composer requiser robmorgan/phinx:0.9.2`
+- Documentação dA biblioteca: https://phinx.org  
+
+### Configurar as credencias do banco de dados
+
+- Crie uma pasta chamada *config*(ou nomeie do jeito que quiser)  
+-> Essa pasta terá toda informação que seja global, como as credenciais por exemplo.  
+- Dentro dessa pasta, crie um arquivo chamado *db.php*(ou nomeie do jeito que quiser)  
+-> Neste arquivo serão definidos as credenciais do banco de dados.
+__O arquivo *db.php* ficará assim:__  
+```php
+return [
+    'development' => [
+        'driver' => 'mysql',
+        'host' => 'localhost',
+        'database' => 'nome-da-sua-base-de-dados',
+        'username' => 'root',
+        'password' => 'root',
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci'
+    ]
+];
+```
+__Esse código define o que é necessário para realizar a conexão e criação do banco de dados.__
+
+### Gerando uma Migração
+
+- Definir qual é a tabela do banco de dados que ela controlará e quais são as credenciais do banco para fazermos a conexão.
+- Criar um arquivo chamado *phinx.php* na raiz da aplicação.
+-> O arquivo *phinx.php* ficará assim:
+```php
+require __DIR__ . '/vendor/autoload.php';
+
+$db = include __DIR__ . '/config/db.php';
+
+// list --> modelo de list so funcionará a partir do PHP 7 ( variáveis podem possuir nome diferente)
+list(
+    'driver' => $adapter,
+    'host' => $host,
+    'database' => $name,
+    'username' => $user,
+    'password' => $pass,
+    'charset' => $charset,
+    'collation' => $collation
+    ) = $db['development'];
+
+return[
+    'paths' => [
+        'migrations' => [
+            __DIR__ . '/db/migrations'
+        ],
+        'seeds' => [
+            __DIR__ . '/db/seeds'   
+        ]
+    ],
+    'environments' => [
+        'default_migration_table' => 'migrations',
+        'default_database' => 'development',
+        'development' => [
+             'adapter' => $adapter,
+             'host' => $host,
+             'name' => $name,
+             'user' => $user,
+             'pass' => $pass,
+             'charset' => $charset,
+             'collation' => $collation
+        ]
+    ]
+];
+```  
+- O Composer, ao instalar a biblioteca, cria uma pasta chamada vendor, que fica na pasta raiz do projeto. Dentro desta pasta, existe uma outra pasta chamada bin, onde ficam os arquivos executáveis das bibliotecas, caso existam.  
+- O comando `vendor/bin/phinx` retornará uma lista de comandos disponíveis.  
+- Para testar se a configuração está funcionando, será criada uma nova migração. Use o comando `vendor/bin/phinx create nome-da-sua-tabela`  
+- A classe criada terá o mesmo nome que foi definido no comando do phinx.  
+
+### Migrando primeira tabela
+
+- Entre classe que foi criada anteriormente pelo comando `vendor/bin/phinx create nome-da-sua-classe`  e insira o comando:
+```php
+use Phinx\Migration\AbstractMigration;
+class CreateCategoryCosts extends AbstractMigration
+{
+    public function up()
+    {
+
+    }
+    public function down()
+    {
+
+    }
+}
+```
+__OBS: -> O método up é responsável por criar as tabelas ou colunas no banco de dados. Ele aplicará todos os comandos, que adicionarmos ao método, no banco de dados.
+-> O método down serve para desfazer o que o comando up fez, ou seja, ele remove todos os campos que foram adicionados, pela função acima.__
+
+# Criando a tabela de centro de custos
+
+-  A classe criada pelo phinx é estendida da classe AbstractMigration. É nesta classe que se encontram todos os métodos que serão utilizados. A classe ficará assim:
+```php
+use Phinx\Migration\AbstractMigration;
+class CreateCategoryCosts extends AbstractMigration
+{
+    public function up()
+    {
+        $this->table('category_costs')
+            ->addColumn('name', 'string')
+            ->addColumn('created_at', 'datetime')
+            ->addColumn('updated_at', 'datetime')
+            ->save();
+    }
+    public function down()
+    {
+        $this->dropTable('category_costs');
+    }
+}
+```  
+- Agora, podemos rodar o comando que executa os métodos up, de todas as migrations criadas. Ou, podemos executar, individualmente. Rode o comando principal, uma vez que temos, apenas, uma migration criada, até agora. Rode o comando `vendor/bin/phinx.bat migrate`
