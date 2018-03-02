@@ -13,7 +13,7 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta git. *Exemplo:C:\Program Files\Git\bin;*  
+- Após o ; coloque o caminho da pasta git. *Exemplo: C:\Program Files\Git\bin;*  
 
 # PHP
 
@@ -30,7 +30,7 @@
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta php. *Exemplo:C:\php;*  
+- Após o ; coloque o caminho da pasta php. *Exemplo: C:\php;*  
 
 ### Configuração PHP
 
@@ -68,7 +68,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta composer. *Exemplo:C:\ProgramData\ComposerSetup\bin;*  
+- Após o ; coloque o caminho da pasta composer. *Exemplo: C:\ProgramData\ComposerSetup\bin;*  
 
 # MYSQL
 
@@ -84,7 +84,7 @@ __Composer__ : Responsável por gerenciar as dependências das aplicações em P
 - Configurações avançadas de sistema
 - Variáveis de Ambiente
 - Em variáveis do sistema (tabela de baixo) edite o campo Path
-- Após o ; coloque o caminho da pasta mysql. *Exemplo:C:\Program Files\MySQL\MySQL Server 5.7\bin;*  
+- Após o ; coloque o caminho da pasta mysql. *Exemplo: C:\Program Files\MySQL\MySQL Server 5.7\bin;*  
 
 # Aplicação
 
