@@ -162,7 +162,7 @@ return [
 ```
 __Esse código define o que é necessário para realizar a conexão e criação do banco de dados.__
 
-### Gerando uma Migração
+# Gerando uma Migração
 
 - Definir qual é a tabela do banco de dados que ela controlará e quais são as credenciais do banco para fazermos a conexão.
 - Criar um arquivo chamado *phinx.php* na raiz da aplicação.
@@ -227,7 +227,7 @@ class CreateCategoryCosts extends AbstractMigration
     {
 
     }
-}
+} 
 ```
 __OBS: -> O método up é responsável por criar as tabelas ou colunas no banco de dados. Ele aplicará todos os comandos, que adicionarmos ao método, no banco de dados.
 -> O método down serve para desfazer o que o comando up fez, ou seja, ele remove todos os campos que foram adicionados, pela função acima.__
@@ -254,3 +254,9 @@ class CreateCategoryCosts extends AbstractMigration
 }
 ```  
 - Agora, podemos rodar o comando que executa os métodos up, de todas as migrations criadas. Ou, podemos executar, individualmente. Rode o comando principal, uma vez que temos, apenas, uma migration criada, até agora. Rode o comando `vendor/bin/phinx.bat migrate`
+- As colunas foram criadas na tabela `category_costs`
+
+# Desfazendo migração
+
+- Para desfazer a migração, rode o comando `vendor/bin/phinx rollback`
+- Este comando executará o método down, da nossa migrations, excluindo a tabela que criamos.
