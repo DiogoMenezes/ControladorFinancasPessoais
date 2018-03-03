@@ -138,9 +138,9 @@ __Migrations : É uma ferramenta que visa realizar manutenção da estrutura de 
 ### Instalação da biblioteca phinx
 
 - Na pasta do projeto, rodar o comando: `composer requiser robmorgan/phinx:0.9.2`
-- Documentação dA biblioteca: https://phinx.org  
+- Documentação da biblioteca: https://phinx.org  
 
-### Configurar as credencias do banco de dados
+### Configurar as credenciais do banco de dados
 
 - Crie uma pasta chamada *config*(ou nomeie do jeito que quiser)  
 -> Essa pasta terá toda informação que seja global, como as credenciais por exemplo.  
@@ -256,7 +256,210 @@ class CreateCategoryCosts extends AbstractMigration
 - Agora, podemos rodar o comando que executa os métodos up, de todas as migrations criadas. Ou, podemos executar, individualmente. Rode o comando principal, uma vez que temos, apenas, uma migration criada, até agora. Rode o comando `vendor/bin/phinx.bat migrate`
 - As colunas foram criadas na tabela `category_costs`
 
-# Desfazendo migração
+### Desfazendo migração
 
 - Para desfazer a migração, rode o comando `vendor/bin/phinx rollback`
 - Este comando executará o método down, da nossa migrations, excluindo a tabela que criamos.
+
+# Criação de seed
+
+- O conceito de seed está diretamente relacionado às migrações.
+- Seeds, são estruturas que podemos criar, em nossa aplicação, a fim de criarmos conteúdos de teste. Este conceito consiste em semear dados no banco de dados.
+- Seeds, são classes, assim como as migrations, que são capazes de gerar dados aleatórios. 
+- Rode o comando `vendor/bin/phinx seed:create CategoryCostsSeeder`  para criar o arquivo.
+__OBS: Lembrando que a seeder deve ser utilizada somente em ambiente de desenvolvimento. Se for preciso adicionar dados em ambiente de produção, deve ser criado uma migração.__
+- Toda seeder irá estender da classe AbstractSeed e disponibilizará o método run.Insira o código abaixo no arquivo *CategoryCostsSeeder.php*:
+```php
+use Phinx\Seed\AbstractSeed;
+
+class CategoryCostsSeeder extends AbstractSeed
+{
+
+    public function run()
+    {
+        $categoryCosts = $this->table('category_costs');
+
+        $categoryCosts->insert([
+            [
+                'name' => 'Category 1',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'name' => 'Category 2',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        ])->save();
+    }
+}
+```
+- Para executar a seed, basta rodar o comando `vendor/bin/phinx seed:run`
+- Resumindo, o processo completo de criação e destruição do nosso ambiente é:
+```php
+vendor/bin/phinx migrate
+vendor/bin/phinx seed:run
+vendor/bin/phinx rollback 
+vendor/bin/phinx migrate
+vendor/bin/phinx seed:run
+```
+# Integrando Faker(biblioteca) com seeders
+
+- Faker é uma biblioteca que nos proporciona dados de testes, de diversos tipos como: telefone, email, nome, data e etc.
+- Instale a biblioteca Faker via composer pelo comando `composer require fzaninotto/faker:1.6.0 --dev`
+- Um exemplo de implementação(basta substituir o arquivo seed criado):
+```php
+use Phinx\Seed\AbstractSeed;
+class CategoryCostsSeeder extends AbstractSeed
+{
+
+    public function run()
+    {
+        $faker = \Faker\Factory::create('pt_BR');
+        $categoryCosts = $this->table('category_costs');
+        $data = [];
+        foreach (range(1, 10) as $value) {
+            $data[] = [
+                'name' => $faker->name,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        }
+        $categoryCosts->insert($data)->save();
+    }
+}
+```
+-Rodando comando `vendor/bin/phinx seed:run`, a tabela *category_costs* será atualizada.
+
+# Interface de container de serviços
+
+- Container de Serviços é um serviço que será reaproveitado em toda aplicação.É uma instância que poderá ser utilizada, a qualquer momento, e ser integrada com outras funcionalidades também.
+- Crie uma pasta chamada *src* na raíz da aplicação.
+- Crie uma interface chamada *ServiceContainerInterface.php.* dentro da pasta *src* e insira o código abaixo:
+```php
+<?php
+declare(strict_types = 1);
+namespace SONFin;
+
+interface ServiceContainerInterface
+{
+    public function add(string $name, $service);
+
+    public function addLazy(string $name, callable $callable);
+
+    public function get(string $name);
+
+    public function has(string $name);
+}
+?>
+```
+- Criamos um método para adição que é o add, adição do formato Lazy, que se trata do addLazy ,um método get, para pegar o serviço e o método has, para verificar se existe um serviço com determinado nome.
+- O comando `declare(strict_types=1)` faz uma checagem de tipo e seta para utilizar o modo “forte” de checagem de tipo.
+
+# Implementando Container
+
+- Será utilizado o container de serviços chamado __PIMPLE__. Trata-se de um container muito simples em que a implementação é baseada em array e tem suporte a injeção de dependência.
+- O Pimple não trabalha com a PSR-11, por padrão, mas existe uma biblioteca que extende o Pimple e força que ele implemente esta PSR-11, para que estejamos de acordo com os padrões de desenvolvimento.
+- Digite o comando `composer require xtreamwayz/pimple-container-interop` para instalar a biblioteca que faz esta implementação via PSR-11.
+- Com a biblioteca instalada, será feita a integração do container de serviços. Crie um arquivo chamado `ServiceContainer.php` dentro da pasta *src* e insira o código abaixo:
+```php
+namespace SONFin;
+
+use Xtreamwayz\Pimple\Container;
+
+class ServiceContainer implements ServiceContainerInterface
+{
+
+    private $container;
+
+    /**
+     * ServiceContainer constructor.
+     * @param $container
+     */
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
+
+    public function add(string $name, $service)
+    {
+        $this->container[$name] = $service;
+    }
+
+    public function addLazy(string $name, callable $callable)
+    {
+        $this->container[$name] = $this->container->factory($callable);
+    }
+
+    public function get(string $name)
+    {
+        return $this->container->get($name);
+    }
+
+    public function has(string $name)
+    {
+        return $this->container->has($name);
+    }
+}
+```
+- O *ServiceContainer* implementa a interface *ServiceContainerInterface* e deve implementar os métodos que ela obriga. No construtor foi instanciado um container, que vem da biblioteca que instalamos anteriormente. Dentro dos métodos, será utilizado o container para implementar os dois métodos da __PSR-11__, que é get e has e, também, os métodos add e addLazy.
+
+# Criação da classe Application 
+- Será a classe responsável por centralizar outras de classes, para que não fique nada jogado na aplicação. Será a classe que centralizará tudo.
+- Crie uma classe dentro da pasta *src*, chamada *Application.php*. A princípio, esta classe será uma instância do *ServiceContainerInterface* e, para fazer esta ligação, utilizaremos o conceito de Dependancy Injection, ou injeção de dependência, noqual injetamos uma dependencia na classe.
+- O arquivo *Application.php* ficará assim:
+```php
+declare(strict_types = 1);
+namespace SONFin;
+
+class Application
+{
+    private $serviceContainer;
+
+    /**
+     * Application constructor.
+     * @param $serviceContainer
+     */
+    public function __construct(ServiceContainerInterface $serviceContainer)
+    {
+        $this->serviceContainer = $serviceContainer;
+    }
+
+    public function service($name)
+    {
+        return $this->serviceContainer->get($name);
+    }
+
+    public function addService(string $name, $service)
+    {
+        if (is_callable($service)) {
+            $this->serviceContainer->addLazy($name, $service);
+        } else {
+            $this->serviceContainer->add($name, $service);
+        }
+    }
+}
+```
+- Além de ser feito a injeção de dependência no construtor, estamos adicionando dois métodos: service e addService. Estes métodos servem para que possamos gerenciar serviços através da classe Application. 
+
+# Criando Plugins
+
+- Se quisermos fazer alguma integração com a classe Application, adicionaremos um plugin a esta classe e, assim, não precisaremos fazer nenhuma alteração, muito grande, para executarmos a integração. Este plugin terá uma interface e um método para realizar alguns registros. A classe Application recebe o plugin, registra o que tiver que registrar e pronto.
+- Crie uma pasta chamada *Plugins*, dentro da pasta *src*. Todos os plugins necessários serão adicionados nesta pasta e todos eles implementarão uma interface. Dentro da pasta *Plugins*, criem um uma interface chamada *PluginInterface.php* e insira o código abaixo:
+```php
+namespace SONFin\Plugins;
+use SONFin\ServiceContainerInterface;
+interface PluginInterface
+{
+    public function register(ServiceContainerInterface $container);
+}
+```
+__OBS: Os plugins terão comunicação com nossa classe Application através do nosso container de serviços. Isso ocorre porque estamos injetando a interface ServiceContainerInterface no método register.__
+- Adicionando método de instalação na classe Application:
+```php
+public function plugin(PluginInterface $plugin): void
+{
+    $plugin->register($this->serviceContainer);
+}
+```
+- Adicionando este método, a classe Application auto-registrará os plugins.
