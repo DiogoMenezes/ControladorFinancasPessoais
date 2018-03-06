@@ -15,7 +15,7 @@ list(
     'collation' => $collation
     ) = $db['development'];
 
-return[
+return [
     'paths' => [
         'migrations' => [
             __DIR__ . '/db/migrations'
@@ -28,13 +28,13 @@ return[
         'default_migration_table' => 'migrations',
         'default_database' => 'development',
         'development' => [
-             'adapter' => $adapter,
-             'host' => $host,
-             'name' => $name,
-             'user' => $user,
-             'pass' => $pass,
-             'charset' => $charset,
-             'collation' => $collation
+            'adapter' => $adapter,
+            'host' => $host,
+            'name' => $name,
+            'user' => $user,
+            'pass' => $pass,
+            'charset' => $charset,
+            'collation' => $collation
         ]
     ]
 ];
