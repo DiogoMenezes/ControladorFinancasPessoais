@@ -604,7 +604,7 @@ public function start(){
 }
  ```
  - No prompt de comando, e na raiz da pasta onde está a aplicação, rode o comando `php -S localhost:8000 -t public public/index.php` parar acessar a aplicação via servidor web embutido.  
- __OBS: Caso queira, podem ser definidas outras rotas, além da que foi criada anteriormente, como por exemplo criar um outro `$app` no arquivo `index.php`. Um exemplo:
+ __OBS: Caso queira, podem ser definidas outras rotas, além da que foi criada anteriormente, como por exemplo criar um outro `$app` no arquivo `index.php`.__ Um exemplo:
  ```php
  $app->get('/teste', function() {
     echo "Teste segunda rota";
