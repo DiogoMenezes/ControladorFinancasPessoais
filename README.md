@@ -137,7 +137,7 @@ __Migrations : É uma ferramenta que visa realizar manutenção da estrutura de 
 
 ### Instalação da biblioteca phinx
 
-- Na pasta do projeto, rodar o comando: `composer requiser robmorgan/phinx:0.9.2`
+- Na pasta do projeto, rodar o comando: `composer require robmorgan/phinx:0.9.2`
 - Documentação da biblioteca: https://phinx.org  
 
 ### Configurar as credenciais do banco de dados
