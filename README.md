@@ -137,7 +137,7 @@ __Migrations : É uma ferramenta que visa realizar manutenção da estrutura de 
 
 ### Instalação da biblioteca phinx
 
-- Na pasta do projeto, rodar o comando: `composer requiser robmorgan/phinx:0.9.2`
+- Na pasta do projeto, rodar o comando: `composer require robmorgan/phinx:0.9.2`
 - Documentação da biblioteca: https://phinx.org  
 
 ### Configurar as credenciais do banco de dados
@@ -463,3 +463,150 @@ public function plugin(PluginInterface $plugin): void
 }
 ```
 - Adicionando este método, a classe Application auto-registrará os plugins.
+
+# Integração com Aura.Router
+
+- Biblioteca que trabalha com rotas amigáveis, fazendo com que o usuário não saiba quais arquivos está acessando.Permite a criação de rotas, em que definiremos o acesso aos controllers e, consequentemente, teremos o retorno das views para o usuário, com os conteúdos corretos, que vieram do Model.  
+__OBS: O nosso projeto é feito baseado na arquitetura MVC(Model-View-Controller).  
+-> Model: Responsável por gerenciar os dados da aplicação, incluindo adição, edição e remoção do banco de dados.  
+-> View: Responsáveis, apenas, por mostrar informações na tela do usuário.  
+-> Controller: Responsável por receber a requisição da View, buscar os dados no Model e retornar os dados para View.__  
+- Para instalar a biblioteca , rode o comando `composer require aura/router:3.1.0`  
+### Criando Primeiro Plugin  
+- O primeiro plugin será o plugin de rotas. Dentro da pasta *src/Plugins*, crie uma classe chamada *RouterPlugins.php* e insira o código abaixo:
+```php
+namespace SONFin\Plugins;
+
+use Aura\Router\RouterContainer;
+use SONFin\ServiceContainerInterface;
+
+class RoutePlugin implements PluginInterface
+{
+
+    public function register(ServiceContainerInterface $container)
+    {
+        $routerContainer = new RouterContainer();
+        /* Registrar as rotas da aplicação */
+        $map = $routerContainer->getMap();
+        /* Tem a função de identificar a rota que está sendo acessada */
+        $matcher = $routerContainer->getMatcher();
+        /* Tem a funão de gerar links com base nas rotas registradas*/
+        $generator = $routerContainer->getGenerator();
+
+        $container->add('routing', $map);
+        $container->add('routing.matcher', $matcher);
+        $container->add('routing.generator', $generator);
+    }
+}
+```  
+- Observem que estamos implementando a interface PluginInterface, para implementar o método register, que passaremos um ServiceContainerInterface como injeção de dependência para o método.
+
+Em seguida, no método register, instanciamos a variável $routerContainer com a classe RouterContainer da biblioteca Aura.
+
+Desta forma, conseguimos atribuir à variável $map o método getMap. Atribuímos o método getMatcher para a variável $matcher, e o método getGenerator para variável $generator.
+
+Depois de atribuírmos os métodos às variáveis, basta utilizarmos o método add, para adicionarmos os métodos ao nosso container de serviços. Notem que passamos um identificador como primeiro parâmetro, e, depois, passamos a variável com o método atribuído.
+
+O método getMap tem a função de registrar as rotas da aplicação.
+
+O método getMatcher tem a função de rastrear a rota acessada para ver se a mesma existe, caso exista, ele faz o relacionamento e o processamento.
+
+O Método getGenerator serve para fazer um redirecionamento de rotas, com base nas rotas registradas.  
+
+ # Configurando combinador de rotas  
+ 
+ - Será utilizado uma biblioteca da Zend, que se chama __zend-diactoros__. Esta biblioteca trabalha com a PSR-7(uma das especificações de projeto utilizado na nossa aplicação). Com ela conseguimos enviar mensagem e resposta, no padrão PSR-7.  
+ 
+ - Instale a biblioteca com o comando `composer require zendframework/zend-diactoros:1.3.10`  
+ 
+ - Nosso arquivo *RouterPlugins.php* ficará assim:
+ ```php
+ declare(strict_types=1);
+
+namespace SONFin\Plugins;
+
+
+use Aura\Router\RouterContainer;
+use Interop\Container\ContainerInterface;
+use Psr\Http\Message\RequestInterface;
+use SONFin\ServiceContainerInterface;
+use Zend\Diactoros\ServerRequestFactory;
+
+class RoutePlugin implements PluginInterface
+{
+
+    public function register(ServiceContainerInterface $container)
+    {
+        $routerContainer = new RouterContainer();
+        /* Registrar as rotas da aplicação */
+        $map = $routerContainer->getMap();
+        /* Tem a função de identificar a rota que está sendo acessada */
+        $matcher = $routerContainer->getMatcher();
+        /* Tem a funão de gerar links com base nas rotas registradas*/
+        $generator = $routerContainer->getGenerator();
+        $request = $this->getRequest();
+
+        $container->add('routing', $map);
+        $container->add('routing.matcher', $matcher);
+        $container->add('routing.generator', $generator);
+        $container->add(RequestInterface::class, $request);
+
+        $container->addLazy('route', function (ContainerInterface $container) {
+            $matcher = $container->get('routing.matcher');
+            $request = $container->get(RequestInterface::class);
+            return $matcher->match($request);
+        });
+
+    }
+
+    protected function getRequest(): RequestInterface
+    {
+        return ServerRequestFactory::fromGlobals(
+            $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
+        );
+    }
+}
+ ```  
+ 
+ # Criando Primeira Rota  
+ 
+ - Criar uma pasta na raiz da aplicação chamada *public*. Essa pasta será o __Document Root(pasta pública)__ da aplicação.  
+ - Criar um arquivo chamado *index.php* e será responsável por iniciar a aplicação. O arquivo ficará assim:
+ ```php
+ use SONFin\Application;
+use SONFin\Plugins\RoutePlugin;
+use SONFin\ServiceContainer;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$serviceContainer = new ServiceContainer();
+$app = new Application($serviceContainer);
+
+$app->plugin(new RoutePlugin());
+
+$app->get('/', function() {
+    echo "Testando rota definida.";
+});
+
+$app->start();
+ ```
+ - No arquivo *Application.php*, insira o código:
+ ```php
+ public function get($path, $action, $name = null): Application{
+    $routing = $this->service('routing');
+    $routing->get($name, $path, $action);
+    return $this;
+}
+public function start(){
+    $route = $this->service('route');
+    $callable = $route->handler;
+    $callable();
+}
+ ```
+ - No prompt de comando, e na raiz da pasta onde está a aplicação, rode o comando `php -S localhost:8000 -t public public/index.php` parar acessar a aplicação via servidor web embutido.  
+ __OBS: Caso queira, podem ser definidas outras rotas, além da que foi criada anteriormente, bastando criar um outro `$app` no arquivo `index.php`.__ Um exemplo:
+ ```php
+ $app->get('/teste', function() {
+    echo "Teste segunda rota";
+});
+ ```
