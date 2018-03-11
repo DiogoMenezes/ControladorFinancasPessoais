@@ -65,7 +65,9 @@ class Application
         $response = $callable($request);
         $this->emitResponse($response);
     }
-    protected function emitResponse(ResponseInterface $response){
+
+    protected function emitResponse(ResponseInterface $response)
+    {
         $emitter = new SapiEmitter();
         $emitter->emit($response);
     }
