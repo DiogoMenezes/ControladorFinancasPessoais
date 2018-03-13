@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc1ed7bff0c8a2669116ef896e0c94bc",
+    "content-hash": "862b70bade7e7feabce963557b679906",
     "packages": [
         {
             "name": "aura/router",
@@ -1089,16 +1089,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.4.6",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f"
+                "reference": "e3bdc12cba135d632a5bb2bcf23717c7af65ae2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d2117ec118c1ff3d28ccddca8212d82787a4809f",
-                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e3bdc12cba135d632a5bb2bcf23717c7af65ae2c",
+                "reference": "e3bdc12cba135d632a5bb2bcf23717c7af65ae2c",
                 "shasum": ""
             },
             "require": {
@@ -1151,7 +1151,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-03T16:23:01+00:00"
+            "time": "2017-06-05T17:24:44+00:00"
         },
         {
             "name": "xtreamwayz/pimple-container-interop",

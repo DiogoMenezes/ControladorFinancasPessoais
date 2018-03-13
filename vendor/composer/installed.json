@@ -1172,17 +1172,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v2.4.6",
-        "version_normalized": "2.4.6.0",
+        "version": "v2.4.0",
+        "version_normalized": "2.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f"
+            "reference": "e3bdc12cba135d632a5bb2bcf23717c7af65ae2c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/d2117ec118c1ff3d28ccddca8212d82787a4809f",
-            "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/e3bdc12cba135d632a5bb2bcf23717c7af65ae2c",
+            "reference": "e3bdc12cba135d632a5bb2bcf23717c7af65ae2c",
             "shasum": ""
         },
         "require": {
@@ -1194,7 +1194,7 @@
             "symfony/debug": "~2.7",
             "symfony/phpunit-bridge": "~3.3@dev"
         },
-        "time": "2018-03-03T16:23:01+00:00",
+        "time": "2017-06-05T17:24:44+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

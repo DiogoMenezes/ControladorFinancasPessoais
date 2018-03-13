@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use SONFin\Application;
+use SONFin\Models\CategoryCost;
 use SONFin\Plugins\DbPlugin;
 use SONFin\Plugins\RoutePlugin;
 use SONFin\Plugins\ViewPlugin;
@@ -25,7 +26,9 @@ $app->get('/home/{name}/{id}', function (ServerRequestInterface $request) {
 
 $app->get('/category-costs', function () use ($app) {
     $view = $app->service('view.renderer');
-    return $view->render('category-costs/list.html.twig');
+    $meuModel = new CategoryCost();
+    $categories = $meuModel->all();
+    return $view->render('category-costs/list.html.twig',['categories' => $categories]);
 });
 
 $app->start();
