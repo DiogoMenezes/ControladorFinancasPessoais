@@ -5,9 +5,9 @@ use SONFin\Models\CategoryCost;
 
 $app
     ->get('/category-costs', function () use ($app) {
+        $view = $app->service('view.renderer');
         $meuModel = new CategoryCost();
         $categories = $meuModel->all();
-        $view = $app->service('view.renderer');
         return $view->render('category-costs/list.html.twig', [
             'categories' => $categories
         ]);
