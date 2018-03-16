@@ -1,7 +1,14 @@
 <?php
 declare(strict_types=1);
+
 namespace SONFin\Repository;
+
 use Illuminate\Database\Eloquent\Model;
+
+// Design Pattern - Factory
+
+// CategoryCost - Default Repository
+
 class DefaultRepository implements RepositoryInterface
 {
     /**
@@ -12,6 +19,7 @@ class DefaultRepository implements RepositoryInterface
      * @var Model
      */
     private $model;
+
     /**
      * DefaultRepository constructor.
      * @param string $modelClass
@@ -21,20 +29,35 @@ class DefaultRepository implements RepositoryInterface
         $this->modelClass = $modelClass;
         $this->model = new $modelClass;
     }
+
     public function all(): array
     {
-        // TODO: Implement all() method.
+        return $this->model->all()->toArray();
     }
+
     public function create(array $data)
     {
-        // TODO: Implement create() method.
+        $this->model->fill($data);
+        $this->model->save();
+        return $this->model;
     }
+
     public function update(int $id, array $data)
     {
-        // TODO: Implement update() method.
+        $model = $this->model->find($id);
+        $model->fill($data);
+        $model->save();
+        return $model;
     }
+
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        $model = $this->model->find($id);
+        $model->delete();
+    }
+
+    public function find(int $id)
+    {
+       return $this->model->findOrFail($id);
     }
 }
