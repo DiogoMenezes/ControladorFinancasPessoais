@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dgm
- * Date: 3/26/2018
- * Time: 11:35 AM
- */
+declare(strict_types=1);
 
 namespace SONFin\Auth;
 
