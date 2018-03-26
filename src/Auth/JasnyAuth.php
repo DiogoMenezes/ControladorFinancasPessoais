@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dgm
- * Date: 3/26/2018
- * Time: 11:54 AM
- */
 
 namespace SONFin\Auth;
-
 
 use Jasny\Auth;
 use Jasny\Auth\Sessions;
@@ -39,7 +32,7 @@ class JasnyAuth extends Auth
      */
     public function fetchUserById($id)
     {
-       return $this->repository->find($id,false);
+        return $this->repository->find($id, false);
     }
 
     /**
@@ -50,6 +43,6 @@ class JasnyAuth extends Auth
      */
     public function fetchUserByUsername($username)
     {
-        return $this->repository->findByField('email',$username)[0];
+        return $this->repository->findByField('email', $username)[0];
     }
 }

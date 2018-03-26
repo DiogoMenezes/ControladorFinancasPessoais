@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace SONFin\Plugins;
 
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 use SONFin\Models\CategoryCost;
 use SONFin\Models\User;
 use SONFin\Repository\RepositoryFactory;
