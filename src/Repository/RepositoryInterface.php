@@ -16,5 +16,5 @@ interface RepositoryInterface
 
     public function delete(int $id);
 
-    public function findByField(string $field, $value): array;
+    public function findByField(string $field, $value);
 }
