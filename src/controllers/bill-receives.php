@@ -1,5 +1,7 @@
 <?php
+
 use Psr\Http\Message\ServerRequestInterface;
+
 $app
     ->get(
         '/bill-receives', function () use ($app) {

@@ -116,3 +116,7 @@ class Application
         $emitter->emit($response);
     }
 }
+
+/**
+ *  Lógica - função -> resposta ou redirecionamento 
+ */
