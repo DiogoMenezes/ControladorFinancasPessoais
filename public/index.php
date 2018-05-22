@@ -10,7 +10,13 @@ use SONFin\ServiceContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+if(file_exists(__DIR__ .'/../.env')) {
+    $dotenv = new \Dotenv\Dotenv(__DIR__ . '/../');
+    $dotenv->overload();
+}
+
 require_once __DIR__ . '/../src/helpers.php';
+
 $serviceContainer = new ServiceContainer();
 $app = new Application($serviceContainer);
 $app->plugin(new RoutePlugin());

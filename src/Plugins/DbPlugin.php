@@ -20,31 +20,39 @@ class DbPlugin implements PluginInterface
     {
         $capsule = new Capsule();
         $config = include __DIR__ . '/../../config/db.php';
-        $capsule->addConnection($config['development']);
+        $capsule->addConnection($config['default_connection']);
         $capsule->bootEloquent();
 
         $container->add('repository.factory', new RepositoryFactory());
 
-        $container->addLazy('category-cost.repository', function () {
-            return new CategoryCostRepository();
-        });
+        $container->addLazy(
+            'category-cost.repository', function () {
+                return new CategoryCostRepository();
+            }
+        );
 
-        $container->addLazy('user.repository', function (ContainerInterface $container) {
-            return $container->get('repository.factory')->factory(User::class);
-        });
+        $container->addLazy(
+            'user.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(User::class);
+            }
+        );
 
-        $container->addLazy('bill-receive.repository', function (ContainerInterface $container) {
-            return $container->get('repository.factory')->factory(BillReceive::class);
-        });
+        $container->addLazy(
+            'bill-receive.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(BillReceive::class);
+            }
+        );
 
-        $container->addLazy('bill-pay.repository', function (ContainerInterface $container) {
-            return $container->get('repository.factory')->factory(BillPay::class);
-        });
+        $container->addLazy(
+            'bill-pay.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(BillPay::class);
+            }
+        );
 
         $container->addLazy(
             'statement.repository', function () {
-            return new StatementRepository();
-        }
+                return new StatementRepository();
+            }
         );
     }
 }

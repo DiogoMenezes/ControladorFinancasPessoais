@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace SONFin;
 
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,32 +12,34 @@ use Zend\Diactoros\Response\SapiEmitter;
 
 class Application
 {
-    private $serviceContainer;
-    private $befores = [];
+    private $_serviceContainer;
+    private $_befores = [];
 
-    // Desing Pattern Dependence Injection (Injetando uma dependencia na classe)
-    public function __construct(ServiceContainerInterface $serviceContainer)
+    /**
+     * Desing Pattern Dependence Injection (Injetando uma dependencia na classe)
+     */
+    public function __construct(ServiceContainerInterface $_serviceContainer)
     {
-        $this->serviceContainer = $serviceContainer;
+        $this->_serviceContainer = $_serviceContainer;
     }
 
     public function service($name)
     {
-        return $this->serviceContainer->get($name);
+        return $this->_serviceContainer->get($name);
     }
 
     public function addService(string $name, $service): void
     {
         if (is_callable($service)) {
-            $this->serviceContainer->addLazy($name, $service);
+            $this->_serviceContainer->addLazy($name, $service);
         } else {
-            $this->serviceContainer->add($name, $service);
+            $this->_serviceContainer->add($name, $service);
         }
     }
 
     public function plugin(PluginInterface $plugin): void
     {
-        $plugin->register($this->serviceContainer);
+        $plugin->register($this->_serviceContainer);
     }
 
     public function get($path, $action, $name = null): Application
@@ -69,12 +70,12 @@ class Application
 
     public function before(callable $callback): Application
     {
-        array_push($this->befores, $callback);
+        array_push($this->_befores, $callback);
         return $this;
     }
     protected function runBefores(): ?ResponseInterface
     {
-        foreach ($this->befores as $callback) {
+        foreach ($this->_befores as $callback) {
             $result = $callback($this->service(RequestInterface::class));
             if ($result instanceof ResponseInterface) {
                 return $result;
@@ -86,7 +87,11 @@ class Application
     public function start(): void
     {
         $route = $this->service('route');
-        /** @var ServerRequestInterface $request */
+        /**
+* 
+         *
+ * @var ServerRequestInterface $request 
+*/
         $request = $this->service(RequestInterface::class);
 
         if (!$route) {
